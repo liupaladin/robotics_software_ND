@@ -245,7 +245,7 @@ RT_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/librt.so
 SETUPTOOLS_DEB_LAYOUT:BOOL=ON
 
 //Name of the computer/site where compile is being run
-SITE:STRING=f1baf81911b1
+SITE:STRING=06feb39170b5
 
 //LSB Distrib tag
 UBUNTU:BOOL=TRUE
@@ -391,12 +391,6 @@ simple_arm_BINARY_DIR:STATIC=/home/workspace/robotics_software_ND/catkin_ws/buil
 
 //Value Computed by CMake
 simple_arm_SOURCE_DIR:STATIC=/home/workspace/robotics_software_ND/catkin_ws/src/simple_arm
-
-//Value Computed by CMake
-simple_mover_BINARY_DIR:STATIC=/home/workspace/robotics_software_ND/catkin_ws/build/simple_arm
-
-//Value Computed by CMake
-simple_mover_SOURCE_DIR:STATIC=/home/workspace/robotics_software_ND/catkin_ws/src/simple_arm
 
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/kinetic/share/std_msgs/cmake
