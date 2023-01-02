@@ -1,0 +1,2 @@
+first_package:simple_arm
+-DCATKIN_DEVEL_PREFIX=/home/workspace/robotics_software_ND/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/workspace/robotics_software_ND/catkin_ws/install -G Unix Makefiles
