@@ -32,3 +32,18 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
   set(CMAKE_INSTALL_SO_NO_EXE "1")
 endif()
 
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/workspace/robotics_software_ND/catkin_ws/build/simple_arm/catkin_generated/installspace/simple_arm.pc")
+endif()
+
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/simple_arm/cmake" TYPE FILE FILES
+    "/home/workspace/robotics_software_ND/catkin_ws/build/simple_arm/catkin_generated/installspace/simple_armConfig.cmake"
+    "/home/workspace/robotics_software_ND/catkin_ws/build/simple_arm/catkin_generated/installspace/simple_armConfig-version.cmake"
+    )
+endif()
+
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/simple_arm" TYPE FILE FILES "/home/workspace/robotics_software_ND/catkin_ws/src/simple_arm/package.xml")
+endif()
+
