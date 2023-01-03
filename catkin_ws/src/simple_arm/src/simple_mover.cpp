@@ -7,9 +7,9 @@ int main(int argc, char** argv){
     // Initialize node handle for the arm mover node
     ros::NodeHandle arm_mover_node_handle;
     // Create a publisher for the joint1 controller cmd
-    ros::Publisher joint1_pub = arm_mover_node_handle.advertise<std_msgs::Float64>("/simple_arm/joint1_position_controller/command", 10);
+    ros::Publisher joint1_pub = arm_mover_node_handle.advertise<std_msgs::Float64>("/simple_arm/joint_1_position_controller/command", 10);
     // Create a publish for the joint2 controller cmd
-    ros::Publisher joint2_pub = arm_mover_node_handle.advertise<std_msgs::Float64>("/simple_arm/joint2_position_controller/command", 10);
+    ros::Publisher joint2_pub = arm_mover_node_handle.advertise<std_msgs::Float64>("/simple_arm/joint_2_position_controller/command", 10);
 
     // Set loop frequency of 10 Hz
     ros::Rate loop_rate(10);
@@ -17,7 +17,7 @@ int main(int argc, char** argv){
     int start_time, time_elapsed;
 
     // Get ROS start time
-    while (!start_time) {
+    while (not start_time) {
         start_time = ros::Time::now().toSec();
     }
 
