@@ -115,8 +115,8 @@ include_directories(src)
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(simple_mover src/simple_mover.cpp)
-add_executable(arm_mover src/arm_mover.cpp)
-add_executable(look_away src/look_away_class.cpp src/ArmController.cpp)
+add_executable(arm_mover src/arm_mover_processor.cpp src/ArmActuator.cpp)
+add_executable(look_away src/look_away_processor.cpp src/ArmController.cpp)
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(simple_mover

@@ -5,7 +5,7 @@ int main(int argc, char** argv) {
     ros::init(argc, argv, "look_away");
     ros::NodeHandle n;
 
-    // Initialize the class for image based arm mover
+    // Initialize the image based arm mover
     ArmController auto_arm_mover;
 
     ros::Subscriber sub1 = n.subscribe("/simple_arm/joint_states", 10, &ArmController::joint_states_callback, &auto_arm_mover);

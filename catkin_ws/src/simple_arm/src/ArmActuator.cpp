@@ -1,15 +1,12 @@
-#include "ros/ros.h"
-#include "simple_arm/GoToPosition.h"
-#include <std_msgs/Float64.h>
-#include <algorithm>
+#include "ArmActuator.h"
 
-// Global joint publisher variables
-ros::Publisher joint1_pub, joint2_pub;
+ArmActuator::ArmActuator() {
+    // Define two publishers to publish joint controller commands
+    joint1_pub = arm_actuator_node_.advertise<std_msgs::Float64>("/simple_arm/joint_1_position_controller/command", 10);
+    joint2_pub = arm_actuator_node_.advertise<std_msgs::Float64>("/simple_arm/joint_2_position_controller/command", 10);
+}
 
-/// @brief This function checks and clamps the joint angles to a safe zone
-/// @param requested_j1, [rad] the joint 1 command
-/// @param requested_j2, [rad] the joint 2 command
-std::vector<float> clamp_cmd_at_boundaries(float requested_j1, float requested_j2) {
+std::vector<float> ArmActuator::clamp_cmd_at_boundaries(float requested_j1, float requested_j2) {
     // Define the joint commands after range protection is applied
     float clamped_j1_cmd = requested_j1;
     float clamped_j2_cmd = requested_j2;
@@ -32,7 +29,7 @@ std::vector<float> clamp_cmd_at_boundaries(float requested_j1, float requested_j
     return clamped_joint_cmds;
 }
 
-bool handle_safe_move_request(simple_arm::GoToPosition::Request& req, simple_arm::GoToPosition::Response& res) {
+bool ArmActuator::handle_safe_move_request(simple_arm::GoToPosition::Request& req, simple_arm::GoToPosition::Response& res) {
     ROS_INFO("GoToPositionRequerst received - j1: %1.2f, j2:%1.2f", (float)req.joint_1, (float)req.joint_2);
     // Check the joint command and apply range protection if necessary
     std::vector<float> clamped_joint_cmds = clamp_cmd_at_boundaries(req.joint_1, req.joint_2);
@@ -51,22 +48,4 @@ bool handle_safe_move_request(simple_arm::GoToPosition::Request& req, simple_arm
     ROS_INFO_STREAM(res.msg_feedback);
 
     return true;
-}
-
-int main(int argc, char** argv) {
-    // Initialize ros node
-    ros::init(argc, argv, "arm_mover");
-    ros::NodeHandle arm_mover_node_handle;
-
-    // Define two publishers to publish joint controller commands
-    joint1_pub = arm_mover_node_handle.advertise<std_msgs::Float64>("/simple_arm/joint_1_position_controller/command", 10);
-    joint2_pub = arm_mover_node_handle.advertise<std_msgs::Float64>("/simple_arm/joint_2_position_controller/command", 10);
-
-    // Define a safe_move service with a handle_safe_move_reqest callback function.
-    ros::ServiceServer service = arm_mover_node_handle.advertiseService("/arm_mover/safe_move", handle_safe_move_request);
-    ROS_INFO("Ready to send joint commands");
-
-    // Handle ROS communication events
-    ros::spin();
-
 }
