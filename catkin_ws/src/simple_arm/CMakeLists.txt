@@ -109,13 +109,14 @@ catkin_package()
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(include ${catkin_INCLUDE_DIRS})
+include_directories(src)
 
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(simple_mover src/simple_mover.cpp)
 add_executable(arm_mover src/arm_mover.cpp)
-add_executable(look_away src/look_away.cpp)
+add_executable(look_away src/look_away_class.cpp src/ArmController.cpp)
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(simple_mover
