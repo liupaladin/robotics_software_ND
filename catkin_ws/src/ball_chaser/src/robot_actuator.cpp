@@ -27,12 +27,12 @@ std::vector<float> RobotActuator::clamp_wheel_cmds_to_boundaries(const float lin
     return {clamped_linear_vel_cmd, clamped_angular_vel_cmd};
 }
 
-bool RobotActuator::send_cmd_to_robot(ball_chaser::DriveToTarget::Requst& req, ball_chaser::DriveToTarget::Response& res) {
+bool RobotActuator::send_cmd_to_robot(ball_chaser::DriveToTarget::Request& req, ball_chaser::DriveToTarget::Response& res) {
     ROS_INFO("DriveToTarget Request is received - j1 %1.2f, j2: %1.2f", (float)req.linear_x, (float)req.angular_z);
     // Check if the wheel commands are within range. Clamp them is range is violated
     std::vector<float> clamped_wheel_commands = clamp_wheel_cmds_to_boundaries((float)req.linear_x, (float)req.angular_z);
     // Set the wheel commands
-    geometry::Twist wheel_command;
+    geometry_msgs::Twist wheel_command;
     wheel_command.linear.x = clamped_wheel_commands[0];
     wheel_command.angular.z = clamped_wheel_commands[1];
     robot_command_pub_.publish(wheel_command);
@@ -43,4 +43,6 @@ bool RobotActuator::send_cmd_to_robot(ball_chaser::DriveToTarget::Requst& req, b
     // Return a response message
     res.msg_feedback = "Wheel command set - linear_x at: " + std::to_string(clamped_wheel_commands[0]) + ", angular_z at: " + std::to_string(clamped_wheel_commands[1]);
     ROS_INFO_STREAM(res.msg_feedback);
+
+    return true;
 }

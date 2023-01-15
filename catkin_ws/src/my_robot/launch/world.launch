@@ -22,6 +22,16 @@
               -x $(arg x) -y $(arg y) -z $(arg z)
               -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)"/>
   
+  <!-- The drive_bot node -->
+   <node name="drive_bot" type="drive_bot" pkg="ball_chaser" output="screen">
+     <rosparam>
+       min_linear_vel: -10.0
+       max_linear_vel: 10.0
+       min_angular_vel: -100.0
+       max_angular_vel: 100.0
+    </rosparam>
+   </node>
+   
   <!-- launch rviz -->
   <node name="rviz" pkg="rviz" type="rviz" respawn="false"/>
   

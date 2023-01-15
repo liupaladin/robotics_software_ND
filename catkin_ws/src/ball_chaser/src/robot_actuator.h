@@ -1,6 +1,7 @@
 #include "ros/ros.h"
 #include "ball_chaser/DriveToTarget.h"
 #include <geometry_msgs/Twist.h>
+#include <vector>
 #include <algorithm>
 
 class RobotActuator {
@@ -9,7 +10,7 @@ class RobotActuator {
         RobotActuator();
 
         /// @brief This function sends the wheel joint comment to the device through publisher
-        bool send_cmd_to_robot(ball_chaser::DriveToTarget::Requst& req, ball_chaser::DriveToTarget::Response& res);
+        bool send_cmd_to_robot(ball_chaser::DriveToTarget::Request& req, ball_chaser::DriveToTarget::Response& res);
 
     private:
         /// @brief This function check and clamps the wheel joint command to feasible range
