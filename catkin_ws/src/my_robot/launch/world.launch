@@ -31,12 +31,15 @@
        max_angular_vel: 100.0
     </rosparam>
    </node>
+  
+  <!-- The process_image node -->
+  <node name="process_image" type="process_image" pkg="ball_chaser" output="screen"/>
    
   <!-- launch rviz -->
   <node name="rviz" pkg="rviz" type="rviz" respawn="false"/>
   
   <!-- World File -->>
-  <arg name="world_file" default="$(find my_robot)/worlds/simple_room_space.world"/>
+  <arg name="world_file" default="$(find my_robot)/worlds/simple_room_with_ball.world"/>
 
   <!-- Launch Gazebo World -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">

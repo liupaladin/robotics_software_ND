@@ -69,6 +69,7 @@ include_directories(src)
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(drive_bot src/drive_bot.cpp src/robot_actuator.cpp)
+add_executable(process_image src/process_image.cpp src/robot_planner.cpp)
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
@@ -77,12 +78,16 @@ add_executable(drive_bot src/drive_bot.cpp src/robot_actuator.cpp)
 target_link_libraries(drive_bot
   ${catkin_LIBRARIES}
 )
+target_link_libraries(process_image
+  ${catkin_LIBRARIES}
+)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
 # add_dependencies(simple_mover simple_arm_generate_messages_cpp)
 add_dependencies(drive_bot drive_bot_generate_messages_cpp)
+add_dependencies(process_image process_image_generate_messages_cpp)
 #############
 ## Install ##
 #############

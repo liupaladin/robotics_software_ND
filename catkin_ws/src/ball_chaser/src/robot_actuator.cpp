@@ -16,10 +16,16 @@ std::vector<float> RobotActuator::clamp_wheel_cmds_to_boundaries(const float lin
     // Initialize a node for ros config reading
     ros::NodeHandle node_config;
     std::string node_name = ros::this_node::getName();
+
     node_config.getParam(node_name + "/min_linear_vel", min_linear_vel);
     node_config.getParam(node_name + "/max_linear_vel", max_linear_vel);
     node_config.getParam(node_name + "/min_angular_vel", min_angular_vel);
     node_config.getParam(node_name + "/max_angular_vel", max_angular_vel);
+
+    ROS_INFO("min_linear_vel j1 %1.2f", min_linear_vel);
+    ROS_INFO("max_linear_vel j1 %1.2f", max_linear_vel);
+    ROS_INFO("min_angular_vel j1 %1.2f", min_angular_vel);
+    ROS_INFO("max_angular_vel j1 %1.2f", max_angular_vel);
 
     // Apply range protection for motor commands
     clamped_linear_vel_cmd = std::min(std::max(linear_vel_cmd, min_linear_vel), max_linear_vel);
@@ -41,7 +47,7 @@ bool RobotActuator::send_cmd_to_robot(ball_chaser::DriveToTarget::Request& req, 
     ros::Duration(0.1).sleep();
 
     // Return a response message
-    res.msg_feedback = "Wheel command set - linear_x at: " + std::to_string(clamped_wheel_commands[0]) + ", angular_z at: " + std::to_string(clamped_wheel_commands[1]);
+    res.msg_feedback = "Wheel command set - linear_x at: " + std::to_string(wheel_command.linear.x) + ", angular_z at: " + std::to_string(wheel_command.angular.z);
     ROS_INFO_STREAM(res.msg_feedback);
 
     return true;
