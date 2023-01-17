@@ -74,14 +74,14 @@
     <collision name="left_wheel_collision">
       <origin xyz="0.0 0 0" rpy="0.0 1.5707 1.5707"/>
       <geometry>
-        <cylinder length="0.05" radius="0.1"/>
+        <cylinder length="0.05" radius="0.12"/>
       </geometry>
     </collision>
 
     <visual name="left_wheel_visual">
       <origin xyz="0.0 0 0" rpy="0.0 1.5707 1.5707"/>
       <geometry>
-        <cylinder length="0.05" radius="0.1"/>
+        <cylinder length="0.05" radius="0.12"/>
       </geometry>
     </visual>
 
@@ -102,14 +102,14 @@
     <collision name="right_wheel_collision">
       <origin xyz="0.0 0 0" rpy="0.0 1.5707 1.5707"/>
       <geometry>
-        <cylinder length="0.05" radius="0.1"/>
+        <cylinder length="0.05" radius="0.12"/>
       </geometry>
     </collision>
 
     <visual name="right_wheel_visual">
       <origin xyz="0.0 0 0" rpy="0.0 1.5707 1.5707"/>
       <geometry>
-        <cylinder length="0.05" radius="0.1"/>
+        <cylinder length="0.05" radius="0.12"/>
       </geometry>
     </visual>
 
@@ -187,42 +187,42 @@
     <collision name='chassis_collision'>
       <origin xyz="0 0 0" rpy=" 0 0 0"/>
       <geometry>
-        <box size="0.4 0.2 0.1"/>
+        <box size="0.45 0.2 0.1"/>
       </geometry>
     </collision>
 
     <visual name='chassis_visual'>
       <origin xyz="0 0 0" rpy=" 0 0 0"/>
       <geometry>
-        <box size="0.4 0.2 0.1"/>
+        <box size="0.45 0.2 0.1"/>
       </geometry>
     </visual>
 
     <collision name='back_caster_collision'>
       <origin xyz="-0.15 0 -0.05" rpy=" 0 0 0"/>
       <geometry>
-        <sphere radius="0.0499"/>
+        <sphere radius="0.0699"/>
       </geometry>
     </collision>
 
     <visual name='back_caster_visual'>
       <origin xyz="-0.15 0 -0.05" rpy=" 0 0 0"/>
       <geometry>
-        <sphere radius="0.05"/>
+        <sphere radius="0.07"/>
       </geometry>
     </visual>
 
      <collision name='front_caster_collision'>
       <origin xyz="0.15 0 -0.05" rpy=" 0 0 0"/>
       <geometry>
-        <sphere radius="0.0499"/>
+        <sphere radius="0.0699"/>
       </geometry>
     </collision>
 
     <visual name='front_caster_visual'>
       <origin xyz="0.15 0 -0.05" rpy=" 0 0 0"/>
       <geometry>
-        <sphere radius="0.05"/>
+        <sphere radius="0.07"/>
       </geometry>
     </visual>
 
