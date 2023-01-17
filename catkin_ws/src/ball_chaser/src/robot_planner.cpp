@@ -20,22 +20,20 @@ void RobotPlanner::drive_robot(const float lin_x, const float ang_z) {
     }
 }
 
-void RobotPlanner::process_image_callback(const sensor_msgs::Image img) {
-    const int white_pixel = 255;
-    int step_size = img.step;
-
+std::vector<int> RobotPlanner::find_white_ball_center(const sensor_msgs::Image& img, const int target_pixel_value) {
     std::vector<int> white_pixel_index;
+    const int step_size = img.step;
     for (int i_row = 0; i_row < img.height; i_row++) {
         int white_pixel_start_index = -1, white_pixel_end_index = -1;
         for (int j_pixel = 0; j_pixel < step_size; j_pixel++) {
             // Assume the white pixel region is continuous
             // Find the start index for white pixels
-            bool is_white_pixel = j_pixel + 2 <step_size && img.data[i_row * step_size + j_pixel] == white_pixel && img.data[i_row * step_size + j_pixel + 1] == white_pixel && img.data[i_row * step_size + j_pixel + 2] == white_pixel;
+            bool is_white_pixel = j_pixel + 2 <step_size && img.data[i_row * step_size + j_pixel] == target_pixel_value && img.data[i_row * step_size + j_pixel + 1] == target_pixel_value && img.data[i_row * step_size + j_pixel + 2] == target_pixel_value;
             if (is_white_pixel && white_pixel_start_index == -1) {
                 white_pixel_start_index = j_pixel;
             }
             // Find the end index for white pixels
-            bool is_next_white_pixel = j_pixel + 5 <step_size && img.data[i_row * step_size + j_pixel + 3] == white_pixel && img.data[i_row * step_size + j_pixel + 4] == white_pixel && img.data[i_row * step_size + j_pixel + 5] == white_pixel;
+            bool is_next_white_pixel = j_pixel + 5 <step_size && img.data[i_row * step_size + j_pixel + 3] == target_pixel_value && img.data[i_row * step_size + j_pixel + 4] == target_pixel_value && img.data[i_row * step_size + j_pixel + 5] == target_pixel_value;
             if (is_white_pixel && !is_next_white_pixel) {
                 white_pixel_end_index = j_pixel;
                 break;
@@ -49,6 +47,13 @@ void RobotPlanner::process_image_callback(const sensor_msgs::Image img) {
         white_pixel_start_index = -1;
         white_pixel_end_index = -1;
     }
+    return white_pixel_index;
+}
+
+void RobotPlanner::process_image_callback(const sensor_msgs::Image& img) {
+    const int white_pixel = 255;
+    const int step_size = img.step;
+    std::vector<int> white_pixel_index = find_white_ball_center(img, white_pixel);
 
     const float search_ang_z = 0.5; // Angular speed for searching rotation
     const float forward_speed = 0.1;
