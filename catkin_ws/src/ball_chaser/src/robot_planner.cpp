@@ -50,14 +50,27 @@ std::vector<int> RobotPlanner::find_white_ball_center(const sensor_msgs::Image& 
     return white_pixel_index;
 }
 
+void RobotPlanner::control_robot_to_target_obj(int delta_index) {
+    const float forward_speed = 0.1;
+    const float k_p = 0.0002;
+    float turning_cmd = k_p * delta_index;
+    ROS_INFO("Turning cmd is set at %1.3f", turning_cmd);
+    // Move towards left
+    if (turning_cmd > 0) {
+        ROS_INFO("Move towards left side");
+    } else if (turning_cmd < 0) {
+        ROS_INFO("Move towards right side");
+    } else {
+        ROS_INFO("Move straight");
+    }
+    drive_robot(forward_speed, turning_cmd);
+}
+
 void RobotPlanner::process_image_callback(const sensor_msgs::Image& img) {
     const int white_pixel = 255;
     const int step_size = img.step;
     std::vector<int> white_pixel_index = find_white_ball_center(img, white_pixel);
-
     const float search_ang_z = 0.5; // Angular speed for searching rotation
-    const float forward_speed = 0.1;
-    const float k_p = 0.0002;
 
     // compute average center index per row to infer ball location
     int sum = 0;
@@ -74,23 +87,8 @@ void RobotPlanner::process_image_callback(const sensor_msgs::Image& img) {
         drive_robot(0.0, search_ang_z);
         return;
     }
-
+    // Ball is found
     ROS_INFO("White ball index position is %1.4d", average_index);
     int delta_index = step_size / 2 - average_index;
-    float turning_cmd = k_p * delta_index;
-    ROS_INFO("Turning cmd is set at %1.3f", turning_cmd);
-    if (average_index > 0 && average_index < step_size) {
-        // Move towards left
-        if (turning_cmd > 0) {
-            ROS_INFO("Move towards left side");
-        } else if (turning_cmd < 0) {
-            ROS_INFO("Move towards right side");
-        } else {
-            ROS_INFO("Move straight");
-        }
-        drive_robot(forward_speed, turning_cmd);
-    } else {
-        // Don't move since no ball is identified
-        drive_robot(0.0, 0.0);
-    }
+    control_robot_to_target_obj(delta_index);
 }

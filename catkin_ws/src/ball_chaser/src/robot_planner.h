@@ -23,4 +23,8 @@ class RobotPlanner
         /// @param target_pixel_value [0-255] The pixel color value to search for, assuming pure color object
         /// @return white_pixel_index, vector that stores all center indices of white ball per row
         std::vector<int> find_white_ball_center(const sensor_msgs::Image& img, const int target_pixel_value);
+
+        /// @brief Simple portional based controller to control the direction of the robot to aim the ball
+        /// @param delta_index error defined by image center index - target object center index
+        void control_robot_to_target_obj(int delta_index);
 };
