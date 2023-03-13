@@ -15,8 +15,18 @@
         <param name="global_frame_id" value="map"/>
 
         <!-- Define initial pose here -->
-        <param name="initial_pose_x" value="0"/>
-        <param name="initial_pose_y" value="0"/>
+        <param name="initial_pose_x" value="0.2"/>
+        <param name="initial_pose_y" value="-3"/>
+
+        <!-- Filter settings -->
+        <param name="min_particles" value="200"/>
+        <param name="max_particles" value="400"/>
+        <param name="update_min_a" value="0.1"/>
+        <param name="update_min_d" value="0.25"/>
+
+        <param name="laser_max_beams" value="50"/>
+        <param name="laser_z_rand" value="0.1"/>
+        <param name="laser_z_hit" value="0.8"/>
     </node>
 
     <!-- Move Base -->

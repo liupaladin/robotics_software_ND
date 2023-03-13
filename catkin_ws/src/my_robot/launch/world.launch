@@ -3,8 +3,8 @@
 <launch>
 
   <!-- Robot pose -->
-  <arg name="x" default="0"/>
-  <arg name="y" default="0"/>
+  <arg name="x" default="0.0"/>
+  <arg name="y" default="-3.0"/>
   <arg name="z" default="0"/>
   <arg name="roll" default="0"/>
   <arg name="pitch" default="0"/>
@@ -23,10 +23,10 @@
               -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)"/>
    
   <!-- launch rviz -->
-  <node name="rviz" pkg="rviz" type="rviz" respawn="false"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d /home/workspace/robotics_software_ND/catkin_ws/src/my_robot/loc_proj_viz" respawn="false"/>
   
   <!-- World File -->>
-  <arg name="world_file" default="$(find my_robot)/worlds/simple_room_with_ball.world"/>
+  <arg name="world_file" default="$(find my_robot)/worlds/simple_room_localization.world"/>
 
   <!-- Launch Gazebo World -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
