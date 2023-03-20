@@ -1,6 +1,10 @@
 
 # Changelog
 
+[0.3.0] - 2023-03-13
+1. Project implementation for where am i.
+2. Course lab implementation for MCL algorithm and script.
+
 [0.2.0] - 2023-01-16
 ### Added
 1. Project implementation for go chase it.

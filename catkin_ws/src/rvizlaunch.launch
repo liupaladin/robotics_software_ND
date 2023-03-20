@@ -1,0 +1,4 @@
+<launch>
+  <!--RVIZ-->
+  <node pkg="rviz" type="rviz" name="rviz" args="-d /home/workspace/robotics_software_ND/catkin_ws/src/ekf_lab.rviz"/>
+</launch>
