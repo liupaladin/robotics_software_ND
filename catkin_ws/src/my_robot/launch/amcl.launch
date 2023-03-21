@@ -30,8 +30,8 @@
         <param name="update_min_d" value="0.25"/>
 
         <param name="laser_max_beams" value="50"/>
-        <param name="laser_z_rand" value="0.06"/>
-        <param name="laser_z_hit" value="0.94"/>
+        <param name="laser_z_rand" value="0.03"/>
+        <param name="laser_z_hit" value="0.97"/>
     </node>
 
     <!-- Move Base -->
