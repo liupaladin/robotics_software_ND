@@ -11,8 +11,11 @@ This repository is used for robotics software nano degree program from udacity
     * The map will be saved once mapping launch is terminated in process.
 3. Project result
 - The view when all the windows are loaded for mapping is shown below.
+![image](https://user-images.githubusercontent.com/51255025/229369216-2fe89338-ca5b-4b94-930e-4bee8dc7d21d.png)
 
-- After the mapping process is completed, you can open the map at ~/.ros location by default and use `rtabmap-databaseViewer ~/.ros/rtabmap.db`. For review convenience, the db file is copied to /myrobot/maps folder. The image below shows the outcome of the mapping process. The map is well identified and the occupancy grid is clear to be used.
+- After the mapping process is completed, you can open the map at ~/.ros location by default and use `rtabmap-databaseViewer ~/.ros/rtabmap.db`. For review convenience, the db file is copied to /myrobot/maps folder. The image below shows the outcome of the mapping process. The map is well identified and the occupancy grid is clear to be used. The view below shows a point where loop closure is detected for a wall corner. The yellow and pink circles are expected based on the view. The loop closure in this process has 12 in total, meeting the project requirement.
+![image2](https://user-images.githubusercontent.com/51255025/229369236-78a0466e-32ec-4b4a-a13a-0af7ba4ed52b.png)
+
 
 # Project 3: where am I
 ## Project run instruction
