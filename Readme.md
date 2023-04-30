@@ -19,7 +19,7 @@ This repository is used for robotics software nano degree program from udacity
 
 # Project 3: where am I
 ## Project run instruction
-1. Go to the catkin_ws folder and use catkin_make to build all packages for the first time.
+1. Go to the catkin_ws folder and use catkin_make to build all the packages for the first time.
 2. Open terminal and use `ctrl+shift+m` to open a second terminal and follow the following steps
 
     * Use source devel/setup.bash in both terminals.
