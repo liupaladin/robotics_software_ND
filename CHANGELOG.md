@@ -1,6 +1,10 @@
 
 # Changelog
 
+[0.4.0] - 2023-04-02
+1. Project implementation for mapping the world based on RTAB SLAM. 
+2. Course lab implementation for slam is completed.
+
 [0.3.0] - 2023-03-13
 1. Project implementation for where am i.
 2. Course lab implementation for MCL algorithm and script.
