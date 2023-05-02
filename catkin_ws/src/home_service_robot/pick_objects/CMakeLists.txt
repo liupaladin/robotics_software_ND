@@ -21,6 +21,8 @@ catkin_package()
 include_directories(include ${catkin_INCLUDE_DIRS})
 
 add_executable(pick_objects src/pick_objects.cpp)
-
 target_link_libraries(pick_objects ${catkin_LIBRARIES})
+
+add_executable(pick_objects_test src/pick_objects_test.cpp)
+target_link_libraries(pick_objects_test ${catkin_LIBRARIES})
   
