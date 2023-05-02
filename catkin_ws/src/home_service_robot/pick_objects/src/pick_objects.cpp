@@ -43,10 +43,10 @@ int main(int argc, char** argv){
   // Check if the robot reached its goal
   if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
     ROS_INFO("Hooray, the robot moved to the pickup position");
-    ros::Duration(5.0).sleep();
     // Change robot location status to 1 for reached pickup location
     status_msg.data = 1;
     robot_loc_pub.publish(status_msg);
+    ros::Duration(5.0).sleep();
   } else {
     ROS_INFO("The robot failed to navigate to pickup position");
     return 0;

@@ -84,7 +84,7 @@ int main( int argc, char** argv )
         is_marker_created = true;
     } else if (robot_localization_status == 1) {
         sleep(5);
-        ROS_INFO("Hiding marker after");
+        ROS_INFO("Hiding marker after picking up");
         marker.action = visualization_msgs::Marker::DELETE;
         marker_pub.publish(marker);
     } else if (robot_localization_status == 2) {

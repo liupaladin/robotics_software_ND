@@ -76,6 +76,7 @@ int main( int argc, char** argv )
     } else if (!is_marker_disappeared && !is_marker_recreated) {
         ROS_INFO("Hiding marker for 5 sec");
         marker.action = visualization_msgs::Marker::DELETE;
+        marker_pub.publish(marker);
         is_marker_disappeared = true;
         sleep(5);
     } else if (is_marker_disappeared) {
