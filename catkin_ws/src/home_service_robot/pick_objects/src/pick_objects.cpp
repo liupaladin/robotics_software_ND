@@ -28,7 +28,7 @@ int main(int argc, char** argv){
   goal.target_pose.pose.position.y = 3.5;
   goal.target_pose.pose.orientation.w = 1.0;
 
-   // Send the goal position and orientation for the robot to reach
+  // Send the goal position and orientation for the robot to reach
   ROS_INFO("Sending goal");
   ac.sendGoal(goal);
   
@@ -36,10 +36,31 @@ int main(int argc, char** argv){
   ac.waitForResult();
   
   // Check if the robot reached its goal
-  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-    ROS_INFO("Hooray, the base moved to the target position");
-  else
-    ROS_INFO("The base failed to navigate to target position");
+  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
+    ROS_INFO("Hooray, the base moved to the pickup position");
+    ros::Duration(5.0).sleep();
+  } else {
+    ROS_INFO("The base failed to navigate to pickup position");
+    return 0;
+  }
 
+  // Set second goal
+  goal.target_pose.pose.position.x = -7.5;
+  goal.target_pose.pose.position.y = -3.7;
+  goal.target_pose.pose.orientation.w = 1.0;
+  // Send the goal position and orientation for the robot to reach
+  ROS_INFO("Sending goal");
+  ac.sendGoal(goal);
+
+  // Wait an infinite time for the results
+  ac.waitForResult();
+
+  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
+    ROS_INFO("Hooray, the base moved to the delivery position");
+  } else {
+    ROS_INFO("Oops, the base didn't manage to move to the delivery position");
+  }
+  ROS_INFO("Mission accomplished");
+  ros::Duration(5.0).sleep();  
   return 0;
 }
