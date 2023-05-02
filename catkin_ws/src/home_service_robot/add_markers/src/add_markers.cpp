@@ -1,5 +1,13 @@
 #include <ros/ros.h>
 #include <visualization_msgs/Marker.h>
+#include <std_msgs/UInt8.h>
+
+uint8_t robot_localization_status = 0;
+
+void robotLocStatusCallback(const std_msgs::UInt8::ConstPtr& msg) {
+    robot_localization_status = msg->data;
+    return;
+}
 
 int main( int argc, char** argv )
 {
@@ -7,6 +15,7 @@ int main( int argc, char** argv )
   ros::NodeHandle n;
   ros::Rate r(1);
   ros::Publisher marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 1);
+  ros::Subscriber robot_pub = n.subscribe("/robot_loc_status", 1, robotLocStatusCallback);
 
   // Set our initial shape type to be a cube
   uint32_t shape = visualization_msgs::Marker::CUBE;
@@ -18,6 +27,8 @@ int main( int argc, char** argv )
 
   while (ros::ok())
   {
+    ros::spinOnce();
+    ROS_INFO("Subscribed robot loc status is %d", robot_localization_status);
     visualization_msgs::Marker marker;
     // Set the frame ID and timestamp.  See the TF tutorials for information on these.
     marker.header.frame_id = "map";
@@ -56,12 +67,11 @@ int main( int argc, char** argv )
     }
     
     // Implement the marker generation sequence
-    if (!is_marker_created) {
+    if (robot_localization_status == 0) {
         marker_pub.publish(marker);
         ROS_INFO("Create marker at pick up location");
         // Set the marker action.  Options are ADD, DELETE, and new in ROS Indigo: 3 (DELETEALL)
         marker.action = visualization_msgs::Marker::ADD;
-
         // Set the pose of the marker.  This is a full 6DOF pose relative to the frame/time specified in the header
         marker.pose.position.x = -2.5;
         marker.pose.position.y = 3.5;
@@ -71,14 +81,17 @@ int main( int argc, char** argv )
         marker.pose.orientation.z = 0.0;
         marker.pose.orientation.w = 1.0;
         marker_pub.publish(marker);
-        sleep(5);
         is_marker_created = true;
-    } else if (!is_marker_disappeared && !is_marker_recreated) {
-        ROS_INFO("Hiding marker for 5 sec");
-        marker.action = visualization_msgs::Marker::DELETE;
-        is_marker_disappeared = true;
+    } else if (robot_localization_status == 1) {
         sleep(5);
-    } else if (is_marker_disappeared) {
+        ROS_INFO("Hiding marker after");
+        marker.action = visualization_msgs::Marker::DELETE;
+        marker_pub.publish(marker);
+    } else if (robot_localization_status == 2) {
+        ROS_INFO("Waiting marker to be carried to destination");
+        marker.action = visualization_msgs::Marker::DELETE;
+        marker_pub.publish(marker);
+    } else if (robot_localization_status == 3) {
         ROS_INFO("Add marker back at the delivery location");
         marker.pose.position.x = -7.5;
         marker.pose.position.y = -3.7;
@@ -91,10 +104,7 @@ int main( int argc, char** argv )
         marker_pub.publish(marker);
         is_marker_recreated = true;
         is_marker_disappeared = false;
-    } else if (is_marker_recreated) {
-        ROS_INFO("Keep the marker, stay idle");
-    }
-
+    } 
     r.sleep();
   }
 }
